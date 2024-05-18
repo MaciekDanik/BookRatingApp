@@ -1,0 +1,118 @@
+﻿@page "/edit"
+@inject BookRating_App.Data.ApplicationDbContext DB
+@using BookRating_App
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h4>Book</h4>
+<hr />
+@if (Book is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Book" OnValidSubmit="UpdateBook" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Book.Id" value="@Book.Id" />
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <InputText id="title" @bind-Value="Book.Title" class="form-control" />
+                    <ValidationMessage For="() => Book.Title" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="Book.Description" class="form-control" />
+                    <ValidationMessage For="() => Book.Description" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author:</label>
+                    <InputText id="author" @bind-Value="Book.Author" class="form-control" />
+                    <ValidationMessage For="() => Book.Author" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="relasedate" class="form-label">RelaseDate:</label>
+                    <InputDate id="relasedate" @bind-Value="Book.RelaseDate" class="form-control" />
+                    <ValidationMessage For="() => Book.RelaseDate" class="text-danger" />
+                </div>    
+                <div class="mb-3">
+                    <label for="rate" class="form-label">Rate:</label> 
+                    <InputNumber id="rate" @bind-Value="Book.Rate" class="form-control" /> 
+                    <ValidationMessage For="() => Book.Rate" class="text-danger" /> 
+                </div>
+                <div class="mb-3">
+                    <label for="rateCount" class="form-label"> Rate count:</label>
+                    <InputNumber id="rate" @bind-Value="Book.rateCount" class="form-control" />
+                    <ValidationMessage For="() => Book.rateCount" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="imgurl" class="form-label">Image Url:</label>
+                    <InputText id="description" @bind-Value="Book.imgUrl" class="form-control" />
+                    <ValidationMessage For="() => Book.imgUrl" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button> |
+                <a class="btn btn-outline-info" href="/">Back to List</a>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    public Book? book;
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+
+    [SupplyParameterFromForm]
+    public Book? Book { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Book ??= await DB.Book.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Book is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+        book = Book;
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task UpdateBook()
+    {
+        DB.Attach(Book!).State = EntityState.Modified;
+
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!BookExists(Book!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/");
+    }
+
+    bool BookExists(int id)
+    {
+        return DB.Book.Any(e => e.Id == id);
+    }
+}

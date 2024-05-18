@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "S:\\MyFiles\\Studia\\Sem6\\NET_Java\\Lab4_Blazor\\Zad1_PoznanieBlazora\\BookRating_App\\BookRating_App\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\BookRating_App.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BookRating_App.bundle.scp.css"
+    },
+    {
+      "Id": "S:\\MyFiles\\Studia\\Sem6\\NET_Java\\Lab4_Blazor\\Zad1_PoznanieBlazora\\BookRating_App\\BookRating_App\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "S:\\MyFiles\\Studia\\Sem6\\NET_Java\\Lab4_Blazor\\Zad1_PoznanieBlazora\\BookRating_App\\BookRating_App\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "S:\\MyFiles\\Studia\\Sem6\\NET_Java\\Lab4_Blazor\\Zad1_PoznanieBlazora\\BookRating_App\\BookRating_App\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "S:\\MyFiles\\Studia\\Sem6\\NET_Java\\Lab4_Blazor\\Zad1_PoznanieBlazora\\BookRating_App\\BookRating_App\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.BookRating_App.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.BookRating_App.props",
+      "PackagePath": "build\\BookRating_App.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BookRating_App.props",
+      "PackagePath": "buildMultiTargeting\\BookRating_App.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.BookRating_App.props",
+      "PackagePath": "buildTransitive\\BookRating_App.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

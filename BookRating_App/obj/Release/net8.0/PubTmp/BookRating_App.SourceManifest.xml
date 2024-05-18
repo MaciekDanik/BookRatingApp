@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="S:\MyFiles\Studia\Sem6\NET_Java\Lab4_Blazor\Zad1_PoznanieBlazora\BookRating_App\BookRating_App\obj\Release\net8.0\PubTmp\Out\" />
+  <dbfullsql path="S:\MyFiles\Studia\Sem6\NET_Java\Lab4_Blazor\Zad1_PoznanieBlazora\BookRating_App\BookRating_App\obj\Release\net8.0\PubTmp\EFSQLScripts\BookRating_App.Data.ApplicationDbContext.sql" />
+</sitemanifest>

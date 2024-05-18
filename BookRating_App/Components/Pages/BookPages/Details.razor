@@ -1,0 +1,123 @@
+﻿@page "/details"
+@inject BookRating_App.Data.ApplicationDbContext DB
+@using BookRating_App
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    @if (book is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <div class="container">
+            <div class="row">
+                <!-- Image Column -->
+                <div class="col-sm-4">
+                    <img src="@book.imgUrl" alt="Book Image" class="img-fluid">
+                </div>
+
+                <!-- Description List Column -->
+                <div class="col-sm-8">
+                    <dl class="row">
+                        <dt class="col-sm-4">Title</dt>
+                        <dd class="col-sm-8">@book.Title</dd>
+
+                        <dt class="col-sm-4">Description</dt>
+                        <dd class="col-sm-8">@book.Description</dd>
+
+                        <dt class="col-sm-4">Author</dt>
+                        <dd class="col-sm-8">@book.Author</dd>
+
+                        <dt class="col-sm-4">Release Date</dt>
+                        <dd class="col-sm-8">@book.RelaseDate</dd>
+
+                        <dt class="col-sm-4">Rate</dt>
+                        <dd class="col-sm-8">@rate</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="container" style="max-width: 300px;">
+            <div class="row">
+                <br />
+                <InputNumber id="rate" @bind-Value="@rating" min="0" max="10" class="form-control" />
+                <br />
+                <button class="btn btn-primary" @onclick="saveRate">Add rate</button>
+            </div>
+        </div>
+
+        <div>
+            <br />
+            <a href="@($"/edit?id={book.Id}")" class="btn btn-outline-warning">Edit</a> |
+            <a href="@($"/")" class="btn btn-outline-info">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    Book? book;
+    float? rate;
+    float? rating;
+
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public Book? Book { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        book = await DB.Book.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (book is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+
+        rate = book.Rate / book.rateCount;
+    }
+
+    private void saveRate()
+    {
+        book.Rate = book.Rate + rating;
+        book.rateCount += 1;
+        rate = book.Rate / book.rateCount;
+        UpdateBook();
+    }
+
+    public async Task UpdateBook()
+    {
+        Book = book;
+        DB.Attach(Book!).State = EntityState.Modified;
+
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!BookExists(Book!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+    }
+
+    bool BookExists(int id)
+    {
+        return DB.Book.Any(e => e.Id == id);
+    }
+}

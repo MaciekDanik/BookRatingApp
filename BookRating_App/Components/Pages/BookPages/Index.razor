@@ -1,0 +1,40 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject BookRating_App.Data.ApplicationDbContext DB
+@using BookRating_App
+@rendermode InteractiveServer
+
+<PageTitle>Index</PageTitle>
+
+<h1>Books</h1>
+
+<AuthorizeView>
+     <Authorized>
+        <p>
+        <a href="/create" class="btn btn-info">Add New </a>
+        @*<a href="books/create" class="btn btn-dark">Add New </a>
+        <a href="books/create" class="btn btn-light">Add New </a>
+        <a href="books/create" class="btn btn-warning">Add New </a>
+        <a href="books/create" class="btn btn-primary">Add New </a>
+        <a href="books/create" class="btn btn-secondary">Add New </a>
+        *@
+        </p>
+    </Authorized>
+</AuthorizeView>
+
+<QuickGrid Class="table" Items="DB.Book">
+    <PropertyColumn Property="book => book.Title" Sortable="true"/>
+    <PropertyColumn Property="book => book.Author" Sortable="true" />
+    <PropertyColumn Property="book => book.RelaseDate" Sortable="true" />
+    <PropertyColumn Property="book => book.Rate / book.rateCount" Sortable="true" />
+            
+
+    <TemplateColumn Context="book">
+        <a href="@($"/edit?id={book.Id}")" class="btn btn-outline-primary">Edit</a> |
+        <a href="@($"/details?id={book.Id}")" class="btn btn-outline-primary">Details</a> |
+        <a href="@($"/delete?id={book.Id}")" class="btn btn-outline-danger">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+
+

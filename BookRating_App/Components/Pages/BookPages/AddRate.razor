@@ -1,0 +1,95 @@
+﻿@page "/add_rating"
+@inject BookRating_App.Data.ApplicationDbContext DB
+@using BookRating_App
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+<PageTitle>Add rate</PageTitle>
+
+<h1>Add rate</h1>
+
+<h4>Book</h4>
+<hr/>
+@if (Book is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+
+            <dl class="row">
+                <dt class="col-sm-2">Title</dt>
+                <dd class="col-sm-10">@Book.Title</dd>
+                <dt class="col-sm-2">Author</dt>
+                <dd class="col-sm-10">@Book.Author</dd>
+                <dt class="col-sm-2">Rate</dt>
+                <dd class="col-sm-10">@nRate</dd>
+            </dl>
+
+            <h2>Add rating:</h2>
+            <InputNumber id="rating" @bind-Value="@nRate" class="form-control"/>
+            <button class="btn btn-primary" @onclick="@saveRate">Add rate</button>
+
+            <a href="@($"/")" class="btn btn-outline-primary">Back to List</a>
+        </div>
+    </div>
+}
+
+@code {
+    //<a href="@($"/books")" class="btn btn-outline-primary">Back to List</a>
+    private float? nRate;
+
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public Book? Book { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Book ??= await DB.Book.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Book is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private void saveRate()
+    {
+        Book.Rate = Book.Rate + nRate;
+        Book.rateCount += 1;
+        nRate = Book.Rate / Book.rateCount;
+    }
+
+    public async Task Addrate()
+    {
+        Book.Rate = nRate / (Book.rateCount + 1);
+        Book.rateCount = Book.rateCount + 1;
+        DB.Attach(Book!).State = EntityState.Modified;
+
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!BookExists(Book!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+        NavigationManager.NavigateTo("/details?id={book.Id}");
+    }
+
+    bool BookExists(int id)
+    {
+        return DB.Book.Any(e => e.Id == id);
+    }
+}

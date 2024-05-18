@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Ten plik jest wykorzystywany przez proces publikowania/pakowania projektu internetowego. Możesz dostosować zachowanie tego procesu
+ poprzez edycję tego pliku MSBuild. Aby dowiedzieć się więcej o tym działaniu, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA80dREzfTGk+TFCiweXj77gAAAAACAAAAAAAQZgAAAAEAACAAAADJ3f4RwReDWWBfDwiUQDGGPl87DmDMGhlgHdThj2ncGgAAAAAOgAAAAAIAACAAAABL0MEBCXcMr35mnDZKce1GR07fNfCFmwjyu085sGeLh4AAAACzIU9/oq068N0krmmwzcl7OjeVwGaziVM5TXK8+2ckcrojYOBakINXEfzJXvTz3oYWQlWTdzJnKuDDIzI9bGdYC1e+hYvaPYk9l5xiA23EoGg9blcVjGP67QWnLpSsWcE0tAdLQCYt91L/tOXWMKoR4kaF4468MbNELVDGY6K/30AAAABBvTKI8AO9TXTCM8l7Nq4NskbOF9W5M0Q2lV9HGXGHpRfkiX5dmIb5ToVVVwfD59WQc4kcXmDatSSGU4QwbswD</EncryptedPassword>
+    <History>False|2024-05-17T06:02:15.2758848Z;False|2024-05-17T07:55:31.2517693+02:00;False|2024-05-17T07:50:44.8740581+02:00;False|2024-05-16T23:26:39.2192727+02:00;False|2024-05-16T23:23:03.3728396+02:00;False|2024-05-16T22:25:47.2858694+02:00;False|2024-05-16T22:21:15.5049195+02:00;False|2024-05-16T22:17:46.4752733+02:00;False|2024-05-16T22:14:45.6191062+02:00;False|2024-05-16T22:11:19.3624340+02:00;False|2024-05-16T22:09:10.6195136+02:00;True|2024-05-16T21:11:41.6150054+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="BookRating_App.Data.ApplicationDbContext">
+      <Value>800563800638-ij37gp1cgqknaf58ot3tl9e4rd2e2j37.apps.googleusercontent.com</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
